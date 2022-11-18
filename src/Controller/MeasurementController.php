@@ -7,11 +7,13 @@ use App\Entity\Measurement;
 use App\Form\MeasurementType;
 use App\Repository\LocationRepository;
 use App\Repository\MeasurementRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_MEASUREMENT_READ')]
 #[Route('/measurement')]
 class MeasurementController extends AbstractController
 {
@@ -23,6 +25,7 @@ class MeasurementController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASUREMENT_CREATE')]
     #[Route('/new', name: 'app_measurement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MeasurementRepository $measurementRepository): Response
     {
@@ -44,6 +47,7 @@ class MeasurementController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASUREMENT_READ')]
     #[Route('/{id}', name: 'app_measurement_show', methods: ['GET'])]
     public function show(Measurement $measurement): Response
     {
@@ -52,6 +56,7 @@ class MeasurementController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASUREMENT_UPDATE')]
     #[Route('/{id}/edit', name: 'app_measurement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Measurement $measurement, MeasurementRepository $measurementRepository): Response
     {
@@ -72,6 +77,7 @@ class MeasurementController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASUREMENT_DELETE')]
     #[Route('/{id}', name: 'app_measurement_delete', methods: ['POST'])]
     public function delete(Request $request, Measurement $measurement, MeasurementRepository $measurementRepository): Response
     {
